@@ -11,8 +11,8 @@ type ChartTypeToggleProps = {
 };
 
 const CHART_OPTIONS: { value: ChartType; label: string; icon: typeof ChartNoAxesColumn }[] = [
-  { value: 'bar', label: 'Bar chart', icon: ChartNoAxesColumn },
   { value: 'pie', label: 'Pie chart', icon: ChartPie },
+  { value: 'bar', label: 'Bar chart', icon: ChartNoAxesColumn },
 ];
 
 export function ChartTypeToggle({ value, onChange }: ChartTypeToggleProps) {
