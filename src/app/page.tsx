@@ -1,5 +1,3 @@
-import { Suspense } from 'react';
-
 import { Dashboard } from '@/components/dashboard';
 import { PageHeader } from '@/components/page-header';
 import { buildDashboardData } from '@/lib/dashboard-data';
@@ -13,11 +11,9 @@ export default async function HomePage() {
   return (
     <main className="mx-auto flex min-h-full w-full max-w-7xl flex-col px-6 py-10">
       {snapshot ? (
-        <Suspense>
-          <Dashboard panels={buildDashboardData(snapshot)}>
-            <PageHeader />
-          </Dashboard>
-        </Suspense>
+        <Dashboard panels={buildDashboardData(snapshot)}>
+          <PageHeader />
+        </Dashboard>
       ) : (
         <div className="flex flex-col gap-8">
           <PageHeader />
@@ -25,7 +21,7 @@ export default async function HomePage() {
             <p>No snapshot data yet.</p>
             <p className="mt-2">
               Run <code className="rounded bg-muted px-1.5 py-0.5 text-foreground">pnpm sync</code>{' '}
-              while the dev server is running to fetch stats via AgentCash.
+              while the dev server is running to fetch stats.
             </p>
           </div>
         </div>
