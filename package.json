@@ -1,0 +1,48 @@
+{
+  "name": "x402vsmpp",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "prisma generate && next build",
+    "start": "next start",
+    "postinstall": "prisma generate",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "types:check": "tsc --noEmit",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "knip": "knip",
+    "check": "pnpm types:check && pnpm lint && pnpm format:check && pnpm knip",
+    "sync": "curl -sf -H \"Authorization: Bearer ${CRON_SECRET:-local-dev-secret}\" http://localhost:3000/api/cron/sync-stats",
+    "db:generate": "prisma generate",
+    "db:migrate": "prisma migrate dev",
+    "db:push": "prisma db push",
+    "db:studio": "prisma studio"
+  },
+  "dependencies": {
+    "@prisma/client": "^6.19.0",
+    "@radix-ui/react-tabs": "^1.1.13",
+    "agentcash": "0.17.0",
+    "clsx": "^2.1.1",
+    "lucide-react": "^1.27.0",
+    "next": "16.2.12",
+    "react": "19.2.4",
+    "react-dom": "19.2.4",
+    "recharts": "^3.7.0",
+    "tailwind-merge": "^3.4.0"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4",
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "eslint": "^9",
+    "eslint-config-next": "16.2.12",
+    "knip": "^5.70.0",
+    "prettier": "^3.6.2",
+    "prisma": "^6.19.0",
+    "tailwindcss": "^4",
+    "typescript": "^5"
+  }
+}
