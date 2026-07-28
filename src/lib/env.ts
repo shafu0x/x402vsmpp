@@ -5,7 +5,7 @@ type EnvKey = (typeof ENV_KEYS)[number];
 const ENV_HELP: Record<EnvKey, string> = {
   DATABASE_URL: 'Postgres connection string (use 127.0.0.1 on macOS)',
   CRON_SECRET: 'Secret for /api/cron/sync-stats (pnpm sync sends Bearer token)',
-  X402_PRIVATE_KEY: 'AgentCash wallet private key for paid stat fetches',
+  X402_PRIVATE_KEY: 'EVM private key for SIWx + Base USDC x402 payments',
 };
 
 function readEnv(key: EnvKey): string {

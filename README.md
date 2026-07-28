@@ -8,7 +8,7 @@ Compare x402 and MPP protocol stats with grouped bar charts.
 brew services start postgresql@16
 createdb x402vsmpp
 cp .env.example .env.local
-# set X402_PRIVATE_KEY in .env.local (from ~/.agentcash/wallet.json or a dedicated key)
+# set X402_PRIVATE_KEY in .env.local (Base USDC wallet with a few cents for sync)
 # use 127.0.0.1 instead of localhost if Prisma reports access denied on macOS
 pnpm install
 pnpm db:push
@@ -28,4 +28,4 @@ All three are required — the app fails on startup if any are missing. Copy `.e
 
 - `DATABASE_URL` — Postgres connection string
 - `CRON_SECRET` — protects `/api/cron/sync-stats`
-- `X402_PRIVATE_KEY` — AgentCash wallet for SIWX + x402 payments
+- `X402_PRIVATE_KEY` — EVM key for SIWx (mppscan) + Base USDC x402 payments (x402scan)
