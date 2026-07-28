@@ -25,7 +25,10 @@
     "@prisma/adapter-pg": "^7.9.1",
     "@prisma/client": "^7.9.1",
     "@radix-ui/react-tabs": "^1.1.13",
-    "agentcash": "0.17.0",
+    "@x402/core": "2.20.0",
+    "@x402/evm": "2.20.0",
+    "@x402/extensions": "2.20.0",
+    "@x402/fetch": "2.20.0",
     "clsx": "^2.1.1",
     "lucide-react": "^1.27.0",
     "next": "16.2.12",
@@ -33,7 +36,8 @@
     "react": "19.2.4",
     "react-dom": "19.2.4",
     "recharts": "^3.7.0",
-    "tailwind-merge": "^3.4.0"
+    "tailwind-merge": "^3.4.0",
+    "viem": "^2.55.10"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",

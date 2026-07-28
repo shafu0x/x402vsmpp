@@ -18,7 +18,7 @@ Call out in the plan where recommendations follow or diverge from those guides.
 
 ## Project
 
-Next.js 16 dashboard comparing x402 vs MPP protocol stats. Postgres via Prisma 7, daily sync via AgentCash CLI, charts with Recharts.
+Next.js 16 dashboard comparing x402 vs MPP protocol stats. Postgres via Prisma 7, daily sync via `@x402/fetch` (SIWx + Base USDC), charts with Recharts.
 
 ## Commands
 
@@ -35,8 +35,8 @@ Node **20.20.0** (`.nvmrc`), pnpm **9.15.0** (`packageManager` in `package.json`
 
 All three are required at app startup. Copy `.env.example` to `.env.local`.
 
-| Variable           | Purpose                                |
-| ------------------ | -------------------------------------- |
-| `DATABASE_URL`     | Postgres connection string             |
-| `CRON_SECRET`      | Protects `/api/cron/sync-stats`        |
-| `X402_PRIVATE_KEY` | AgentCash wallet for paid stat fetches |
+| Variable           | Purpose                                        |
+| ------------------ | ---------------------------------------------- |
+| `DATABASE_URL`     | Postgres connection string                     |
+| `CRON_SECRET`      | Protects `/api/cron/sync-stats`                |
+| `X402_PRIVATE_KEY` | EVM key for SIWx + Base USDC x402 stat fetches |
