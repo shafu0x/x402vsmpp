@@ -8,8 +8,8 @@ import { ChartContainer } from '@/components/ui/chart';
 import {
   CHART_CONFIG,
   getMetricSegments,
-  toSegmentData,
   type MetricChartProps,
+  toSegmentData,
 } from '@/lib/metric-chart';
 
 export function MetricPieChart(props: MetricChartProps) {
@@ -46,6 +46,7 @@ export function MetricPieChart(props: MetricChartProps) {
             innerRadius={0}
             outerRadius={72}
             strokeWidth={0}
+            animationDuration={300}
           >
             {pieData.map((datum) => (
               <Cell key={datum.key} fill={datum.fill} />
