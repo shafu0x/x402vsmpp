@@ -1,4 +1,5 @@
 import { Dashboard } from '@/components/dashboard';
+import { Footer } from '@/components/footer';
 import { PageHeader } from '@/components/page-header';
 import { buildDashboardData } from '@/lib/dashboard-data';
 import { getLatestSnapshotSet } from '@/lib/snapshots';
@@ -9,7 +10,7 @@ export default async function HomePage() {
   const snapshot = await getLatestSnapshotSet();
 
   return (
-    <main className="mx-auto flex min-h-full w-full max-w-7xl flex-col px-6 py-10">
+    <main className="mx-auto flex min-h-screen w-full max-w-7xl flex-col px-6 py-10">
       {snapshot ? (
         <Dashboard panels={buildDashboardData(snapshot)}>
           <PageHeader />
@@ -26,6 +27,7 @@ export default async function HomePage() {
           </div>
         </div>
       )}
+      <Footer />
     </main>
   );
 }
