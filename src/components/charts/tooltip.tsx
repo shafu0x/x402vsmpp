@@ -6,6 +6,7 @@ import {
   SEGMENT_LABELS,
   type SegmentKey,
 } from '@/lib/metric-chart';
+import { PROTOCOL_LABELS } from '@/lib/normalize';
 import type { MetricKey } from '@/lib/types';
 
 type MetricSegmentTooltipProps = {
@@ -23,7 +24,10 @@ export function MetricSegmentTooltip({
   color,
   percentage,
 }: MetricSegmentTooltipProps) {
-  const label = SEGMENT_LABELS[segmentKey];
+  const label =
+    segmentKey === 'mpp'
+      ? SEGMENT_LABELS.mpp
+      : `${PROTOCOL_LABELS.x402} (${SEGMENT_LABELS[segmentKey]})`;
   const fill = color ?? SEGMENT_COLORS[segmentKey];
 
   return (

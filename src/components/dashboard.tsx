@@ -3,22 +3,22 @@
 import dynamic from 'next/dynamic';
 import { useState, type ReactNode } from 'react';
 
+import { MetricCardSkeleton } from '@/components/charts/chart-skeleton';
 import { ChartTypeToggle } from '@/components/charts/toggle';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import type { DashboardData, TimeframePanelData } from '@/lib/dashboard-data';
-import { METRIC_LABELS, DESKTOP_CHART_MEDIA_QUERY, type ChartType } from '@/lib/metric-chart';
+import { METRIC_LABELS, type ChartType } from '@/lib/metric-chart';
 import { METRICS, TIMEFRAME_OPTIONS } from '@/lib/snapshot-helpers';
 import type { MetricKey, Timeframe } from '@/lib/types';
-import { useMediaQuery } from '@/lib/use-media-query';
 
 const DynamicBarChart = dynamic(
   () => import('@/components/charts/bar-chart').then((m) => m.MetricBarChart),
-  { ssr: false },
+  { ssr: false, loading: () => <MetricCardSkeleton /> },
 );
 
 const DynamicPieChart = dynamic(
   () => import('@/components/charts/pie-chart').then((m) => m.MetricPieChart),
-  { ssr: false },
+  { ssr: false, loading: () => <MetricCardSkeleton /> },
 );
 
 type DashboardProps = {
@@ -65,10 +65,8 @@ function TimeframePanel({ stats, chartType }: { stats: TimeframePanelData; chart
 }
 
 export function Dashboard({ panels, children }: DashboardProps) {
-  const isDesktop = useMediaQuery(DESKTOP_CHART_MEDIA_QUERY);
   const [timeframe, setTimeframe] = useState<Timeframe>(DEFAULT_TIMEFRAME);
-  const [chartOverride, setChartOverride] = useState<ChartType | null>(null);
-  const chartType = chartOverride ?? (isDesktop ? 'bar' : 'pie');
+  const [chartType, setChartType] = useState<ChartType>('bar');
 
   return (
     <Tabs
@@ -79,7 +77,7 @@ export function Dashboard({ panels, children }: DashboardProps) {
       <div className="flex flex-col items-start gap-4 sm:flex-row sm:items-center sm:justify-between">
         {children}
         <div className="flex shrink-0 items-center gap-2">
-          <ChartTypeToggle value={chartType} onChange={setChartOverride} />
+          <ChartTypeToggle value={chartType} onChange={setChartType} />
           <TabsList>
             {TIMEFRAME_OPTIONS.map(({ value, label }) => (
               <TabsTrigger key={value} value={String(value)}>
