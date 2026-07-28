@@ -24,6 +24,8 @@ pnpm check
 
 ## Environment
 
+All three are required — the app fails on startup if any are missing. Copy `.env.example` to `.env.local` and set every value before `pnpm dev`.
+
 - `DATABASE_URL` — Postgres connection string
 - `CRON_SECRET` — protects `/api/cron/sync-stats`
 - `X402_PRIVATE_KEY` — AgentCash wallet for SIWX + x402 payments
