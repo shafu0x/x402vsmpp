@@ -1,4 +1,4 @@
-import type { Prisma } from '@prisma/client';
+import type { Prisma } from '@/generated/prisma/client';
 
 import { prisma } from '@/lib/db';
 import type { ProtocolKey, ProtocolStats, SnapshotSet, Timeframe } from '@/lib/types';
