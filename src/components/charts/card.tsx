@@ -20,7 +20,7 @@ export function MetricCard({ segments, children }: MetricCardProps) {
           {headerItems.map(({ key, value, color, label }) => (
             <div key={key} className="flex items-center gap-1.5">
               <span className="size-1.5 rounded-full" style={{ backgroundColor: color }} />
-              <span className="text-sm font-semibold text-foreground">
+              <span className="text-sm font-semibold tabular-nums text-foreground">
                 {formatMetricValue(segments.metric, value)}
               </span>
               <span className="text-xs text-muted-foreground">{label}</span>
@@ -30,7 +30,7 @@ export function MetricCard({ segments, children }: MetricCardProps) {
       </CardHeader>
       <CardContent className="p-4 pt-1">
         {segments.total === 0 ? (
-          <div className="flex h-[160px] items-center justify-center text-sm text-muted-foreground">
+          <div className="flex h-40 items-center justify-center text-sm text-muted-foreground">
             No data
           </div>
         ) : (

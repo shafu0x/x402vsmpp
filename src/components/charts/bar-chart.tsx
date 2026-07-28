@@ -24,7 +24,7 @@ export function MetricBarChart(props: MetricChartProps) {
 
   return (
     <MetricCard segments={segments}>
-      <ChartContainer config={CHART_CONFIG} className="mx-auto h-[160px] w-full max-w-[168px]">
+      <ChartContainer config={CHART_CONFIG} className="mx-auto h-40 w-full max-w-42">
         <BarChart
           data={chartData}
           barCategoryGap={20}

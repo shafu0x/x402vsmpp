@@ -1,7 +1,11 @@
+import { Suspense } from 'react';
+
 import { Dashboard } from '@/components/dashboard';
+import { PageHeader } from '@/components/page-header';
+import { buildDashboardData } from '@/lib/dashboard-data';
 import { getLatestSnapshotSet } from '@/lib/snapshots';
 
-export const dynamic = 'force-dynamic';
+export const revalidate = 300;
 
 export default async function HomePage() {
   const snapshot = await getLatestSnapshotSet();
@@ -9,15 +13,14 @@ export default async function HomePage() {
   return (
     <main className="mx-auto flex min-h-full w-full max-w-7xl flex-col px-6 py-10">
       {snapshot ? (
-        <Dashboard snapshot={snapshot} />
+        <Suspense>
+          <Dashboard panels={buildDashboardData(snapshot)}>
+            <PageHeader />
+          </Dashboard>
+        </Suspense>
       ) : (
         <div className="flex flex-col gap-8">
-          <header>
-            <h1 className="text-3xl font-semibold tracking-tight">x402 vs MPP</h1>
-            <p className="mt-2 text-sm text-muted-foreground">
-              Protocol comparison across transactions, volume, buyers, and sellers.
-            </p>
-          </header>
+          <PageHeader />
           <div className="rounded-xl border border-border bg-card p-8 text-sm text-muted-foreground">
             <p>No snapshot data yet.</p>
             <p className="mt-2">

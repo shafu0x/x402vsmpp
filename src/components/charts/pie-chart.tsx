@@ -18,7 +18,7 @@ export function MetricPieChart(props: MetricChartProps) {
 
   return (
     <MetricCard segments={segments}>
-      <ChartContainer config={CHART_CONFIG} className="mx-auto h-[160px] w-full max-w-[168px]">
+      <ChartContainer config={CHART_CONFIG} className="mx-auto h-40 w-full max-w-42">
         <PieChart margin={{ top: 4, right: 4, left: 4, bottom: 0 }}>
           <Tooltip
             content={({ active, payload }) => {

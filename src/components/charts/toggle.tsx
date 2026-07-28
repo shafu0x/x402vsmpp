@@ -15,10 +15,10 @@ export function ChartTypeToggle({ value, onChange }: ChartTypeToggleProps) {
     <Tabs value={value} onValueChange={(v) => onChange(v as ChartType)}>
       <TabsList className="shrink-0">
         <TabsTrigger value="bar" aria-label="Bar chart">
-          <ChartNoAxesColumn className="size-4" />
+          <ChartNoAxesColumn className="size-4" aria-hidden="true" />
         </TabsTrigger>
         <TabsTrigger value="pie" aria-label="Pie chart">
-          <ChartPie className="size-4" />
+          <ChartPie className="size-4" aria-hidden="true" />
         </TabsTrigger>
       </TabsList>
     </Tabs>

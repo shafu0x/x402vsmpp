@@ -1,3 +1,4 @@
+import { revalidatePath } from 'next/cache';
 import { NextRequest, NextResponse } from 'next/server';
 
 import { fetchAllProtocolStats } from '@/lib/fetch-stats';
@@ -19,6 +20,7 @@ export async function GET(request: NextRequest) {
   try {
     const stats = await fetchAllProtocolStats();
     const fetchedAt = await saveProtocolStats(stats);
+    revalidatePath('/');
 
     return NextResponse.json({
       ok: true,
