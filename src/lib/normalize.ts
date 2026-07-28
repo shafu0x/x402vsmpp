@@ -50,8 +50,8 @@ export const PROTOCOL_LABELS: Record<ProtocolKey, string> = {
 };
 
 export const PROTOCOL_COLORS: Record<ProtocolKey, string> = {
-  x402: '#0052FF',
-  mpp: '#00C38E',
+  x402: '#00ADB5',
+  mpp: '#393E46',
 };
 
 export const CHAIN_LABELS: Record<ChainKey, string> = {
@@ -60,6 +60,6 @@ export const CHAIN_LABELS: Record<ChainKey, string> = {
 };
 
 export const CHAIN_COLORS: Record<ChainKey, string> = {
-  base: '#0052FF',
-  solana: '#5B9AFF',
+  base: '#00ADB5',
+  solana: '#33C4CA',
 };

@@ -27,6 +27,7 @@ type DashboardProps = {
 };
 
 const DEFAULT_TIMEFRAME: Timeframe = 7;
+const DEFAULT_CHART_TYPE: ChartType = 'pie';
 
 function parseTimeframe(value: string): Timeframe {
   if (value === '1' || value === '7' || value === '30') return Number(value) as Timeframe;
@@ -66,7 +67,7 @@ function TimeframePanel({ stats, chartType }: { stats: TimeframePanelData; chart
 
 export function Dashboard({ panels, children }: DashboardProps) {
   const [timeframe, setTimeframe] = useState<Timeframe>(DEFAULT_TIMEFRAME);
-  const [chartType, setChartType] = useState<ChartType>('bar');
+  const [chartType, setChartType] = useState<ChartType>(DEFAULT_CHART_TYPE);
 
   return (
     <Tabs
