@@ -6,7 +6,7 @@ const config: KnipConfig = {
   ],
   project: ['src/**/*.{ts,tsx}', '*.{ts,mjs}'],
   ignore: ['src/components/ui/**'],
-  ignoreDependencies: ['postcss', 'tailwindcss', 'agentcash'],
+  ignoreDependencies: ['postcss', 'tailwindcss', 'agentcash', '@prisma/client', 'pg', '@types/pg'],
 };
 
 export default config;
