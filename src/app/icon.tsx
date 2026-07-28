@@ -13,8 +13,20 @@ export default function Icon() {
         height: '100%',
         borderRadius: '50%',
         background: PROTOCOL_COLORS.x402,
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
       }}
-    />,
+    >
+      <div
+        style={{
+          width: 14,
+          height: 14,
+          borderRadius: '50%',
+          background: PROTOCOL_COLORS.mpp,
+        }}
+      />
+    </div>,
     { ...size },
   );
 }
