@@ -11,15 +11,10 @@ export default function Icon() {
       style={{
         width: '100%',
         height: '100%',
-        display: 'flex',
-        background: '#0a0a0a',
-        borderRadius: 8,
-        overflow: 'hidden',
+        borderRadius: '50%',
+        background: PROTOCOL_COLORS.x402,
       }}
-    >
-      <div style={{ flex: 1, background: PROTOCOL_COLORS.x402 }} />
-      <div style={{ flex: 1, background: PROTOCOL_COLORS.mpp }} />
-    </div>,
+    />,
     { ...size },
   );
 }
