@@ -6,6 +6,7 @@ import { MetricCard } from '@/components/charts/card';
 import { MetricSegmentTooltip } from '@/components/charts/tooltip';
 import { ChartContainer } from '@/components/ui/chart';
 import {
+  CHART_ANIMATION_DURATION,
   CHART_CONFIG,
   getMetricSegments,
   type MetricChartProps,
@@ -46,7 +47,7 @@ export function MetricPieChart(props: MetricChartProps) {
             innerRadius={0}
             outerRadius={72}
             strokeWidth={0}
-            animationDuration={300}
+            animationDuration={CHART_ANIMATION_DURATION}
           >
             {pieData.map((datum) => (
               <Cell key={datum.key} fill={datum.fill} />

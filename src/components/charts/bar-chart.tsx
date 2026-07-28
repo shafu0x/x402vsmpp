@@ -6,6 +6,7 @@ import { MetricCard } from '@/components/charts/card';
 import { MetricSegmentTooltip } from '@/components/charts/tooltip';
 import { ChartContainer } from '@/components/ui/chart';
 import {
+  CHART_ANIMATION_DURATION,
   CHART_CONFIG,
   getMetricSegments,
   type MetricChartProps,
@@ -66,6 +67,7 @@ export function MetricBarChart(props: MetricChartProps) {
             radius={[0, 0, 0, 0]}
             barSize={BAR_SIZE}
             activeBar={{ fillOpacity: 0.75 }}
+            animationDuration={CHART_ANIMATION_DURATION}
           />
           <Bar
             stackId="all"
@@ -74,6 +76,7 @@ export function MetricBarChart(props: MetricChartProps) {
             radius={[4, 4, 0, 0]}
             barSize={BAR_SIZE}
             activeBar={{ fillOpacity: 0.75 }}
+            animationDuration={CHART_ANIMATION_DURATION}
           />
           <Bar
             stackId="all"
@@ -82,6 +85,7 @@ export function MetricBarChart(props: MetricChartProps) {
             radius={[4, 4, 0, 0]}
             barSize={BAR_SIZE}
             activeBar={{ fillOpacity: 0.75 }}
+            animationDuration={CHART_ANIMATION_DURATION}
           />
         </BarChart>
       </ChartContainer>

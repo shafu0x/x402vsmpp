@@ -111,6 +111,8 @@ export function getProtocolHeaderItems(segments: MetricSegments): ProtocolHeader
   ];
 }
 
+export const CHART_ANIMATION_DURATION = 300;
+
 export const CHART_CONFIG = {
   base: { label: CHAIN_LABELS.base, color: CHAIN_COLORS.base },
   solana: { label: CHAIN_LABELS.solana, color: CHAIN_COLORS.solana },
