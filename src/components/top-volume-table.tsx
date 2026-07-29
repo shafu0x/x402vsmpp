@@ -59,6 +59,30 @@ const TABLE_COLUMNS = [
   },
 ] as const;
 
+const MOBILE_METRICS = [
+  {
+    key: 'volume',
+    label: 'volume',
+    icon: DollarSign,
+    format: formatVolume,
+    getValue: (entry: TopVolumeEntry) => entry.volume,
+  },
+  {
+    key: 'txns',
+    label: 'txs',
+    icon: ArrowLeftRight,
+    format: formatCount,
+    getValue: (entry: TopVolumeEntry) => entry.transactions,
+  },
+  {
+    key: 'buyers',
+    label: 'buyers',
+    icon: Users,
+    format: formatCount,
+    getValue: (entry: TopVolumeEntry) => entry.buyers,
+  },
+] as const;
+
 function ColumnHeader({
   label,
   icon: Icon,
@@ -290,13 +314,19 @@ export function TopVolumeTable({ entries }: TopVolumeTableProps) {
                   ) : null}
                   <EntryName entry={entry} />
                 </div>
-                <p className="text-sm tabular-nums text-foreground">
-                  {formatVolume(entry.volume)}
-                  <span className="text-muted-foreground"> · </span>
-                  {formatCount(entry.transactions)} txns
-                  <span className="text-muted-foreground"> · </span>
-                  {formatCount(entry.buyers)} buyers
-                </p>
+                <div className="grid w-full grid-cols-3 gap-2">
+                  {MOBILE_METRICS.map(({ key, label, icon: Icon, format, getValue }) => (
+                    <div key={key} className="flex flex-col gap-0.5">
+                      <span className="inline-flex items-center gap-1 text-xs text-muted-foreground">
+                        <Icon className="size-3.5 shrink-0" aria-hidden="true" />
+                        {label}
+                      </span>
+                      <span className="text-sm tabular-nums text-foreground">
+                        {format(getValue(entry))}
+                      </span>
+                    </div>
+                  ))}
+                </div>
               </div>
             </li>
           ))}
