@@ -142,19 +142,19 @@ function ServiceIcon({ entry }: { entry: TopVolumeEntry }) {
   );
 }
 
-function getDisplayName(entry: TopVolumeEntry): { label: string; title: string } {
+function getDisplayName(entry: TopVolumeEntry, compact = false): { label: string; title: string } {
   if (entry.protocol === 'x402' && entry.href) {
     const recipient = entry.href.split('/recipient/').at(-1);
     if (recipient?.startsWith('0x')) {
-      return { label: formatAddress(recipient), title: recipient };
+      return { label: formatAddress(recipient, compact), title: recipient };
     }
   }
 
   return { label: entry.name, title: entry.name };
 }
 
-function EntryName({ entry }: { entry: TopVolumeEntry }) {
-  const { label, title } = getDisplayName(entry);
+function EntryName({ entry, compact = false }: { entry: TopVolumeEntry; compact?: boolean }) {
+  const { label, title } = getDisplayName(entry, compact);
 
   const content = (
     <span className="min-w-0 truncate font-mono text-xs" title={title} translate="no">
@@ -335,7 +335,7 @@ export function TopVolumeTable({ entries }: TopVolumeTableProps) {
                       <ServiceIcon entry={entry} />
                     </span>
                   ) : null}
-                  <EntryName entry={entry} />
+                  <EntryName entry={entry} compact />
                 </div>
                 <div className="grid w-full grid-cols-4 items-start gap-2">
                   {MOBILE_METRICS.map(({ key, label, icon: Icon, format, getValue }) => (
