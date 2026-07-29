@@ -31,3 +31,23 @@ model ProtocolSnapshot {
   @@index([fetchedAt])
   @@index([timeframe, protocol, fetchedAt])
 }
+
+model ServiceLeaderboardEntry {
+  id           String   @id @default(cuid())
+  fetchedAt    DateTime
+  timeframe    Int
+  protocol     Protocol
+  rank         Int
+  name         String
+  href         String?
+  logoUrl      String?
+  chains       String?
+  facilitators String?
+  transactions BigInt
+  volume       Decimal  @db.Decimal(20, 6)
+  buyers       Int
+
+  @@unique([fetchedAt, timeframe, rank])
+  @@index([fetchedAt])
+  @@index([timeframe, protocol, fetchedAt])
+}

@@ -1,4 +1,5 @@
-import type { ChainKey, ProtocolKey, ProtocolStats, Timeframe } from '@/lib/types';
+import { formatAddress } from '@/lib/format';
+import type { ChainKey, ProtocolKey, ProtocolStats, Timeframe, TopVolumeEntry } from '@/lib/types';
 
 type MppStatsResponse = {
   totalTransactions: number;
@@ -15,6 +16,28 @@ type X402StatsResponse = {
     unique_sellers: number;
   };
 };
+
+export type MppServiceResponse = {
+  name: string;
+  url: string;
+  logoUrl: string | null;
+  stats: {
+    transactions: number;
+    volume: number;
+    buyers: number;
+  };
+};
+
+export type X402MerchantResponse = {
+  recipient: string;
+  facilitator_ids: string[];
+  tx_count: number;
+  total_amount: number;
+  unique_buyers: number;
+  chains: string[];
+};
+
+type TopVolumeCandidate = Omit<TopVolumeEntry, 'rank'>;
 
 export function normalizeMppStats(timeframe: Timeframe, data: MppStatsResponse): ProtocolStats {
   return {
@@ -44,14 +67,50 @@ export function normalizeX402Stats(
   };
 }
 
+export function normalizeMppService(
+  timeframe: Timeframe,
+  service: MppServiceResponse,
+): TopVolumeCandidate {
+  return {
+    protocol: 'mpp',
+    timeframe,
+    name: service.name,
+    href: service.url,
+    logoUrl: service.logoUrl,
+    chains: 'tempo',
+    facilitators: null,
+    transactions: service.stats.transactions,
+    volume: service.stats.volume,
+    buyers: service.stats.buyers,
+  };
+}
+
+export function normalizeX402Merchant(
+  timeframe: Timeframe,
+  merchant: X402MerchantResponse,
+): TopVolumeCandidate {
+  return {
+    protocol: 'x402',
+    timeframe,
+    name: formatAddress(merchant.recipient),
+    href: `https://x402scan.com/recipient/${merchant.recipient}`,
+    logoUrl: null,
+    chains: merchant.chains.map((chain) => chain.toLowerCase()).join(','),
+    facilitators: merchant.facilitator_ids.join(', ') || null,
+    transactions: merchant.tx_count,
+    volume: merchant.total_amount / 1_000_000,
+    buyers: merchant.unique_buyers,
+  };
+}
+
 export const PROTOCOL_LABELS: Record<ProtocolKey, string> = {
   x402: 'x402',
   mpp: 'MPP',
 };
 
 export const PROTOCOL_COLORS: Record<ProtocolKey, string> = {
-  x402: '#00ADB5',
-  mpp: '#393E46',
+  x402: '#0000ff',
+  mpp: '#32353d',
 };
 
 export const CHAIN_LABELS: Record<ChainKey, string> = {
@@ -60,6 +119,6 @@ export const CHAIN_LABELS: Record<ChainKey, string> = {
 };
 
 export const CHAIN_COLORS: Record<ChainKey, string> = {
-  base: '#00ADB5',
-  solana: '#33C4CA',
+  base: '#0000ff',
+  solana: '#3c8aff',
 };

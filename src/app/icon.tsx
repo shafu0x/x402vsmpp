@@ -23,7 +23,7 @@ export default function Icon() {
           width: 14,
           height: 14,
           borderRadius: '50%',
-          background: PROTOCOL_COLORS.mpp,
+          background: '#0a0b0d',
         }}
       />
     </div>,
