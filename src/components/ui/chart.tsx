@@ -7,7 +7,7 @@ import { cn } from '@/lib/utils';
 
 const THEMES = { light: '', dark: '.dark' } as const;
 
-export type ChartConfig = Record<
+type ChartConfig = Record<
   string,
   {
     label?: React.ReactNode;

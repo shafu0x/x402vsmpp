@@ -90,9 +90,13 @@ export function Dashboard({ panels, children }: DashboardProps) {
         {children}
         <div className="flex shrink-0 items-center gap-2">
           <ChartTypeToggle value={chartType} onChange={setChartType} />
-          <TabsList>
+          <TabsList className="h-8 p-0.5 sm:h-10 sm:p-1">
             {TIMEFRAME_OPTIONS.map(({ value, label }) => (
-              <TabsTrigger key={value} value={String(value)}>
+              <TabsTrigger
+                key={value}
+                value={String(value)}
+                className="px-2 py-1 text-xs sm:px-4 sm:py-1.5 sm:text-sm"
+              >
                 {label}
               </TabsTrigger>
             ))}
