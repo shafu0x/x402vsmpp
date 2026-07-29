@@ -27,13 +27,15 @@ function toProtocolStats(row: SnapshotRow): ProtocolStats {
   };
 }
 
-export async function getLatestSnapshotSet(): Promise<SnapshotSet | null> {
+export async function getLatestSnapshotSet(): Promise<SnapshotSet> {
   const latest = await prisma.protocolSnapshot.findFirst({
     orderBy: { fetchedAt: 'desc' },
     select: { fetchedAt: true },
   });
 
-  if (!latest) return null;
+  if (!latest) {
+    throw new Error('No snapshot data yet. Run pnpm sync.');
+  }
 
   const rows = await prisma.protocolSnapshot.findMany({
     where: { fetchedAt: latest.fetchedAt },
