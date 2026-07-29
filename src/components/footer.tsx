@@ -1,5 +1,8 @@
+'use client';
+
 import { Heart } from 'lucide-react';
 
+import { sendDiscordNotification } from '@/lib/discord';
 import { PROTOCOL_COLORS } from '@/lib/normalize';
 
 export function Footer() {
@@ -18,6 +21,9 @@ export function Footer() {
           target="_blank"
           rel="noopener noreferrer"
           className="text-inherit no-underline"
+          onClick={() => {
+            void sendDiscordNotification('someone clicked @shafu0x');
+          }}
         >
           @shafu0x
         </a>
