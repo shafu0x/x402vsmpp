@@ -5,6 +5,7 @@ import { useState, type ReactNode } from 'react';
 
 import { MetricCardSkeleton } from '@/components/charts/chart-skeleton';
 import { ChartTypeToggle } from '@/components/charts/toggle';
+import { TopVolumeTable } from '@/components/top-volume-table';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import type { DashboardData, TimeframePanelData } from '@/lib/dashboard-data';
 import { METRIC_LABELS, type ChartType } from '@/lib/metric-chart';
@@ -43,24 +44,34 @@ function MetricChart({
   metric: MetricKey;
   stats: TimeframePanelData;
 }) {
+  const chartProps = {
+    metric,
+    x402Base: stats.x402Base,
+    x402Solana: stats.x402Solana,
+    mpp: stats.mpp,
+  };
+
   if (chartType === 'bar') {
-    return <DynamicBarChart metric={metric} {...stats} />;
+    return <DynamicBarChart {...chartProps} />;
   }
 
-  return <DynamicPieChart metric={metric} {...stats} />;
+  return <DynamicPieChart {...chartProps} />;
 }
 
 function TimeframePanel({ stats, chartType }: { stats: TimeframePanelData; chartType: ChartType }) {
   return (
-    <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
-      {METRICS.map((metric) => (
-        <div key={metric} className="flex flex-col gap-3">
-          <MetricChart chartType={chartType} metric={metric} stats={stats} />
-          <h2 className="text-center text-xs font-medium text-muted-foreground">
-            {METRIC_LABELS[metric]}
-          </h2>
-        </div>
-      ))}
+    <div className="flex flex-col gap-8">
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        {METRICS.map((metric) => (
+          <div key={metric} className="flex flex-col gap-3">
+            <MetricChart chartType={chartType} metric={metric} stats={stats} />
+            <h2 className="text-center text-xs font-medium text-muted-foreground">
+              {METRIC_LABELS[metric]}
+            </h2>
+          </div>
+        ))}
+      </div>
+      <TopVolumeTable entries={stats.topVolume} />
     </div>
   );
 }
