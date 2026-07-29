@@ -3,7 +3,7 @@
 import { Cell, Pie, PieChart, Tooltip } from 'recharts';
 
 import { MetricCard } from '@/components/charts/card';
-import { MetricSegmentTooltip } from '@/components/charts/tooltip';
+import { MetricSegmentTooltip, METRIC_TOOLTIP_WRAPPER_STYLE } from '@/components/charts/tooltip';
 import { ChartContainer } from '@/components/ui/chart';
 import {
   CHART_ANIMATION_BEGIN,
@@ -24,6 +24,7 @@ export function MetricPieChart(props: MetricChartProps) {
       <ChartContainer config={CHART_CONFIG} className="mx-auto h-40 w-full max-w-42">
         <PieChart margin={{ top: 4, right: 4, left: 4, bottom: 0 }}>
           <Tooltip
+            wrapperStyle={METRIC_TOOLTIP_WRAPPER_STYLE}
             content={({ active, payload }) => {
               if (!active || !payload?.length) return null;
               const item = payload[0]?.payload;
