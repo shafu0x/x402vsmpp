@@ -142,19 +142,19 @@ function ServiceIcon({ entry }: { entry: TopVolumeEntry }) {
   );
 }
 
-function getDisplayName(entry: TopVolumeEntry): { label: string; title: string } {
+function getDisplayName(entry: TopVolumeEntry, compact = false): { label: string; title: string } {
   if (entry.protocol === 'x402' && entry.href) {
     const recipient = entry.href.split('/recipient/').at(-1);
     if (recipient?.startsWith('0x')) {
-      return { label: formatAddress(recipient), title: recipient };
+      return { label: formatAddress(recipient, compact), title: recipient };
     }
   }
 
   return { label: entry.name, title: entry.name };
 }
 
-function EntryName({ entry }: { entry: TopVolumeEntry }) {
-  const { label, title } = getDisplayName(entry);
+function EntryName({ entry, compact = false }: { entry: TopVolumeEntry; compact?: boolean }) {
+  const { label, title } = getDisplayName(entry, compact);
 
   const content = (
     <span className="min-w-0 truncate font-mono text-xs" title={title} translate="no">
@@ -179,14 +179,35 @@ function EntryName({ entry }: { entry: TopVolumeEntry }) {
 }
 
 const CHAIN_ICON_CONFIG = {
-  tempo: { src: '/chains/tempo.png', label: 'Tempo' },
-  base: { src: '/chains/base.svg', label: 'Base' },
-  solana: { src: '/chains/solana.svg', label: 'Solana' },
+  tempo: {
+    icon: '/chains/tempo.png',
+    wordmark: '/chains/tempo-wordmark-white.svg',
+    label: 'Tempo',
+    wordmarkClassName: 'block h-3 w-auto max-w-14 shrink-0 object-contain',
+  },
+  base: {
+    icon: '/chains/base.svg',
+    wordmark: '/chains/base-wordmark-blue.svg',
+    label: 'Base',
+    wordmarkClassName: 'block h-3 w-auto max-w-10 shrink-0 object-contain',
+  },
+  solana: {
+    icon: '/chains/solana.svg',
+    wordmark: '/chains/solana.svg',
+    label: 'Solana',
+    wordmarkClassName: 'block size-4 shrink-0 object-contain',
+  },
 } as const;
 
 type ChainIconKey = keyof typeof CHAIN_ICON_CONFIG;
 
-function ChainIcons({ chains }: { chains: string | null }) {
+function ChainIcons({
+  chains,
+  variant = 'icon',
+}: {
+  chains: string | null;
+  variant?: 'icon' | 'wordmark';
+}) {
   if (!chains) {
     return <span className="text-muted-foreground">—</span>;
   }
@@ -202,18 +223,23 @@ function ChainIcons({ chains }: { chains: string | null }) {
 
   return (
     <div className="flex items-center gap-1.5">
-      {keys.map((key) => (
-        // eslint-disable-next-line @next/next/no-img-element -- local static chain logos
-        <img
-          key={key}
-          src={CHAIN_ICON_CONFIG[key].src}
-          width={20}
-          height={20}
-          alt={CHAIN_ICON_CONFIG[key].label}
-          title={CHAIN_ICON_CONFIG[key].label}
-          className="size-5 shrink-0"
-        />
-      ))}
+      {keys.map((key) => {
+        const config = CHAIN_ICON_CONFIG[key];
+        const src = variant === 'wordmark' ? config.wordmark : config.icon;
+        const className = variant === 'wordmark' ? config.wordmarkClassName : 'size-5 shrink-0';
+
+        return (
+          // eslint-disable-next-line @next/next/no-img-element -- local static chain logos
+          <img
+            key={key}
+            src={src}
+            {...(variant === 'icon' ? { width: 20, height: 20 } : {})}
+            alt={config.label}
+            title={config.label}
+            className={className}
+          />
+        );
+      })}
     </div>
   );
 }
@@ -297,12 +323,9 @@ export function TopVolumeTable({ entries }: TopVolumeTableProps) {
           {entries.map((entry) => (
             <li
               key={`${entry.protocol}-${entry.rank}-${entry.name}`}
-              className="relative rounded-xl border border-border/60 bg-card/80 p-4"
+              className="rounded-xl border border-border/60 bg-card/80 p-4"
             >
-              <div className="absolute right-4 top-4">
-                <ChainIcons chains={entry.chains} />
-              </div>
-              <div className="flex flex-col items-start gap-2 pr-10">
+              <div className="flex flex-col items-start gap-2">
                 <div className="flex min-w-0 max-w-full items-center gap-2">
                   {entry.protocol === 'mpp' ? (
                     <span
@@ -312,20 +335,29 @@ export function TopVolumeTable({ entries }: TopVolumeTableProps) {
                       <ServiceIcon entry={entry} />
                     </span>
                   ) : null}
-                  <EntryName entry={entry} />
+                  <EntryName entry={entry} compact />
                 </div>
-                <div className="grid w-full grid-cols-3 gap-2">
+                <div className="grid w-full grid-cols-4 items-start gap-2">
                   {MOBILE_METRICS.map(({ key, label, icon: Icon, format, getValue }) => (
                     <div key={key} className="flex flex-col gap-0.5">
                       <span className="inline-flex items-center gap-1 text-xs text-muted-foreground">
                         <Icon className="size-3.5 shrink-0" aria-hidden="true" />
                         {label}
                       </span>
-                      <span className="text-sm tabular-nums text-foreground">
+                      <span className="flex h-5 items-center text-sm tabular-nums text-foreground">
                         {format(getValue(entry))}
                       </span>
                     </div>
                   ))}
+                  <div className="flex flex-col gap-0.5">
+                    <span className="inline-flex items-center gap-1 text-xs text-muted-foreground">
+                      <Globe className="size-3.5 shrink-0" aria-hidden="true" />
+                      chain
+                    </span>
+                    <div className="flex h-5 items-center">
+                      <ChainIcons chains={entry.chains} variant="wordmark" />
+                    </div>
+                  </div>
                 </div>
               </div>
             </li>

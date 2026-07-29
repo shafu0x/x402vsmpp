@@ -3,7 +3,7 @@
 import { Bar, BarChart, Tooltip, XAxis, YAxis } from 'recharts';
 
 import { MetricCard } from '@/components/charts/card';
-import { MetricSegmentTooltip } from '@/components/charts/tooltip';
+import { MetricSegmentTooltip, METRIC_TOOLTIP_WRAPPER_STYLE } from '@/components/charts/tooltip';
 import { ChartContainer } from '@/components/ui/chart';
 import {
   CHART_ANIMATION_BEGIN,
@@ -44,6 +44,7 @@ export function MetricBarChart(props: MetricChartProps) {
           <Tooltip
             shared={false}
             cursor={{ fill: 'transparent' }}
+            wrapperStyle={METRIC_TOOLTIP_WRAPPER_STYLE}
             content={({ active, payload }) => {
               if (!active || !payload?.length) return null;
               const item = payload[0];

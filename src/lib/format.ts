@@ -10,7 +10,12 @@ export function formatVolume(value: number): string {
   return `$${value.toFixed(0)}`;
 }
 
-export function formatAddress(address: string): string {
+export function formatAddress(address: string, compact = false): string {
+  if (compact) {
+    if (address.length <= 13) return address;
+    return `${address.slice(0, 6)}…${address.slice(-4)}`;
+  }
+
   if (address.length <= 22) return address;
   return `${address.slice(0, 10)}…${address.slice(-8)}`;
 }
