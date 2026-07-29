@@ -1,6 +1,6 @@
 import { ImageResponse } from 'next/og';
 
-import { CHAIN_COLORS, PROTOCOL_COLORS } from '@/lib/normalize';
+import { PROTOCOL_COLORS } from '@/lib/normalize';
 
 export const size = { width: 32, height: 32 };
 export const contentType = 'image/png';
@@ -23,7 +23,7 @@ export default function Icon() {
           width: 14,
           height: 14,
           borderRadius: '50%',
-          background: CHAIN_COLORS.solana,
+          background: '#0a0b0d',
         }}
       />
     </div>,
