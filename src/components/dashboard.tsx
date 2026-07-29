@@ -88,15 +88,17 @@ export function Dashboard({ panels, children }: DashboardProps) {
     >
       <div className="flex flex-col items-start gap-4 sm:flex-row sm:items-center sm:justify-between">
         {children}
-        <div className="flex shrink-0 items-center gap-2">
-          <ChartTypeToggle value={chartType} onChange={setChartType} />
-          <TabsList>
+        <div className="flex shrink-0 flex-col items-start gap-2 sm:flex-row sm:items-center">
+          <TabsList className="sm:order-2">
             {TIMEFRAME_OPTIONS.map(({ value, label }) => (
               <TabsTrigger key={value} value={String(value)}>
                 {label}
               </TabsTrigger>
             ))}
           </TabsList>
+          <div className="sm:order-1">
+            <ChartTypeToggle value={chartType} onChange={setChartType} />
+          </div>
         </div>
       </div>
       {TIMEFRAME_OPTIONS.map(({ value }) => (
