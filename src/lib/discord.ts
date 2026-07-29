@@ -12,7 +12,11 @@ export async function sendDiscordNotification(content: string): Promise<void> {
       const response = await fetch(env.DISCORD_WEBHOOK_URL, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ content, avatar_url: DISCORD_AVATAR_URL }),
+        body: JSON.stringify({
+          content,
+          username: 'x402vsmpp',
+          avatar_url: DISCORD_AVATAR_URL,
+        }),
       });
 
       if (!response.ok) {
