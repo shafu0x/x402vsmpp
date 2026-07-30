@@ -20,7 +20,7 @@ export function Footer() {
           href="https://x.com/shafu0x"
           target="_blank"
           rel="noopener noreferrer"
-          className="text-inherit no-underline"
+          className="text-inherit underline"
           onClick={() => {
             void sendDiscordNotification('someone clicked @shafu0x');
           }}
