@@ -14,7 +14,13 @@ export function getStatsForTimeframe(
   };
 }
 
-export const METRICS: MetricKey[] = ['transactions', 'volume', 'buyers', 'sellers'];
+export const METRICS = [
+  'transactions',
+  'volume',
+  'buyers',
+  'sellers',
+  'avgTicket',
+] as const satisfies readonly MetricKey[];
 
 export const TIMEFRAME_OPTIONS: { value: Timeframe; label: string }[] = [
   { value: 1, label: '24 Hours' },

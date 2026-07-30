@@ -51,7 +51,8 @@ function MetricChart({
     mpp: stats.mpp,
   };
 
-  if (chartType === 'bar') {
+  // Averages are not additive shares — pie slices would misread as market share.
+  if (chartType === 'bar' || metric === 'avgTicket') {
     return <DynamicBarChart {...chartProps} />;
   }
 
@@ -61,7 +62,7 @@ function MetricChart({
 function TimeframePanel({ stats, chartType }: { stats: TimeframePanelData; chartType: ChartType }) {
   return (
     <div className="flex flex-col gap-8">
-      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
         {METRICS.map((metric) => (
           <div key={metric} className="flex flex-col gap-3">
             <MetricChart chartType={chartType} metric={metric} stats={stats} />
