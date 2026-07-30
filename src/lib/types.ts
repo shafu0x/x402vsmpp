@@ -4,7 +4,7 @@ export type ProtocolKey = 'x402' | 'mpp';
 
 export type ChainKey = 'base' | 'solana';
 
-export type MetricKey = 'transactions' | 'volume' | 'buyers' | 'sellers';
+export type MetricKey = 'transactions' | 'volume' | 'buyers' | 'sellers' | 'avgTicket';
 
 export type ProtocolStats = {
   protocol: ProtocolKey;

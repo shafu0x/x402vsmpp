@@ -29,7 +29,7 @@ export function MetricCard({ segments, children }: MetricCardProps) {
         </div>
       </CardHeader>
       <CardContent className="p-4 pt-1">
-        {segments.total === 0 ? (
+        {segments.x402 === 0 && segments.mpp === 0 ? (
           <div className="flex h-40 items-center justify-center text-sm text-muted-foreground">
             No data
           </div>

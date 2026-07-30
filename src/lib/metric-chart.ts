@@ -1,4 +1,4 @@
-import { formatCount, formatVolume } from '@/lib/format';
+import { formatAvgTicket, formatCount, formatVolume } from '@/lib/format';
 import { CHAIN_COLORS, CHAIN_LABELS, PROTOCOL_COLORS, PROTOCOL_LABELS } from '@/lib/normalize';
 import type { ChainKey, MetricKey, ProtocolStats } from '@/lib/types';
 
@@ -41,6 +41,7 @@ export const METRIC_LABELS: Record<MetricKey, string> = {
   volume: 'Volume',
   buyers: 'Buyers',
   sellers: 'Sellers',
+  avgTicket: 'Avg Ticket',
 };
 
 export const SEGMENT_LABELS: Record<SegmentKey, string> = {
@@ -56,20 +57,53 @@ export const SEGMENT_COLORS: Record<SegmentKey, string> = {
 };
 
 export function formatMetricValue(metric: MetricKey, value: number) {
-  return metric === 'volume' ? formatVolume(value) : formatCount(value);
+  if (metric === 'avgTicket') return formatAvgTicket(value);
+  if (metric === 'volume') return formatVolume(value);
+  return formatCount(value);
 }
 
-function getMetricValue(stat: ProtocolStats | null, metric: MetricKey) {
+type StoredMetricKey = Exclude<MetricKey, 'avgTicket'>;
+
+function avgTicket(stat: ProtocolStats | null): number {
+  if (!stat || stat.transactions === 0) return 0;
+  return stat.volume / stat.transactions;
+}
+
+function getMetricValue(stat: ProtocolStats | null, metric: StoredMetricKey) {
   if (!stat) return 0;
   return stat[metric];
 }
 
-export function getMetricSegments({
+function getAvgTicketSegments({
   metric,
   x402Base,
   x402Solana,
   mpp,
 }: MetricChartProps): MetricSegments {
+  const base = avgTicket(x402Base);
+  const solana = avgTicket(x402Solana);
+  const mppValue = avgTicket(mpp);
+  const x402Tx = (x402Base?.transactions ?? 0) + (x402Solana?.transactions ?? 0);
+  const x402Vol = (x402Base?.volume ?? 0) + (x402Solana?.volume ?? 0);
+  const x402 = x402Tx === 0 ? 0 : x402Vol / x402Tx;
+
+  return {
+    metric,
+    base,
+    solana,
+    mpp: mppValue,
+    x402,
+    total: 0,
+  };
+}
+
+export function getMetricSegments(props: MetricChartProps): MetricSegments {
+  const { metric, x402Base, x402Solana, mpp } = props;
+
+  if (metric === 'avgTicket') {
+    return getAvgTicketSegments(props);
+  }
+
   const base = getMetricValue(x402Base, metric);
   const solana = getMetricValue(x402Solana, metric);
   const mppValue = getMetricValue(mpp, metric);
