@@ -1,6 +1,7 @@
 import { revalidatePath } from 'next/cache';
 import { NextRequest, NextResponse } from 'next/server';
 
+import { sendDiscordAlert } from '@/lib/discord';
 import { env } from '@/lib/env';
 import { fetchCombinedTopVolume } from '@/lib/fetch-leaderboard';
 import { fetchAllProtocolStats } from '@/lib/fetch-stats';
@@ -27,6 +28,8 @@ export async function GET(request: NextRequest) {
     ]);
     revalidatePath('/');
 
+    void sendDiscordAlert('Sync succeeded');
+
     return NextResponse.json({
       ok: true,
       fetchedAt: fetchedAt.toISOString(),
@@ -35,6 +38,7 @@ export async function GET(request: NextRequest) {
     });
   } catch (error) {
     const message = error instanceof Error ? error.message : 'Sync failed';
+    void sendDiscordAlert(`Sync failed — ${message}`);
     return NextResponse.json({ error: message }, { status: 500 });
   }
 }

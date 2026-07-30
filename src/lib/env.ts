@@ -2,7 +2,8 @@ const ENV_KEYS = [
   'DATABASE_URL',
   'CRON_SECRET',
   'X402_PRIVATE_KEY',
-  'DISCORD_WEBHOOK_URL',
+  'DISCORD_NOTIFICATIONS_WEBHOOK_URL',
+  'DISCORD_ALERTS_WEBHOOK_URL',
 ] as const;
 
 type EnvKey = (typeof ENV_KEYS)[number];
@@ -11,7 +12,8 @@ const ENV_HELP: Record<EnvKey, string> = {
   DATABASE_URL: 'Postgres connection string (use 127.0.0.1 on macOS)',
   CRON_SECRET: 'Secret for /api/cron/sync-stats (pnpm sync sends Bearer token)',
   X402_PRIVATE_KEY: 'EVM private key for SIWx + Base USDC x402 payments',
-  DISCORD_WEBHOOK_URL: 'Discord webhook URL for app notifications',
+  DISCORD_NOTIFICATIONS_WEBHOOK_URL: 'Discord webhook URL for app notifications',
+  DISCORD_ALERTS_WEBHOOK_URL: 'Discord webhook URL for sync success/failure alerts',
 };
 
 function readEnv(key: EnvKey): string {
@@ -26,7 +28,8 @@ function validateEnv(): Record<EnvKey, string> {
       DATABASE_URL: readEnv('DATABASE_URL'),
       CRON_SECRET: readEnv('CRON_SECRET'),
       X402_PRIVATE_KEY: readEnv('X402_PRIVATE_KEY'),
-      DISCORD_WEBHOOK_URL: readEnv('DISCORD_WEBHOOK_URL'),
+      DISCORD_NOTIFICATIONS_WEBHOOK_URL: readEnv('DISCORD_NOTIFICATIONS_WEBHOOK_URL'),
+      DISCORD_ALERTS_WEBHOOK_URL: readEnv('DISCORD_ALERTS_WEBHOOK_URL'),
     };
   }
 
@@ -42,6 +45,7 @@ export const env =
         DATABASE_URL: readEnv('DATABASE_URL'),
         CRON_SECRET: readEnv('CRON_SECRET'),
         X402_PRIVATE_KEY: readEnv('X402_PRIVATE_KEY'),
-        DISCORD_WEBHOOK_URL: readEnv('DISCORD_WEBHOOK_URL'),
+        DISCORD_NOTIFICATIONS_WEBHOOK_URL: readEnv('DISCORD_NOTIFICATIONS_WEBHOOK_URL'),
+        DISCORD_ALERTS_WEBHOOK_URL: readEnv('DISCORD_ALERTS_WEBHOOK_URL'),
       }
     : validateEnv();

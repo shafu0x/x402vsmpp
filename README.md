@@ -24,8 +24,10 @@ pnpm check
 
 ## Environment
 
-All three are required — the app fails on startup if any are missing. Copy `.env.example` to `.env.local` and set every value before `pnpm dev`.
+All five are required — the app fails on startup if any are missing. Copy `.env.example` to `.env.local` and set every value before `pnpm dev`.
 
 - `DATABASE_URL` — Postgres connection string
 - `CRON_SECRET` — protects `/api/cron/sync-stats`
 - `X402_PRIVATE_KEY` — EVM key for SIWx (mppscan) + Base USDC x402 payments (x402scan)
+- `DISCORD_NOTIFICATIONS_WEBHOOK_URL` — Discord webhook for app notifications
+- `DISCORD_ALERTS_WEBHOOK_URL` — Discord webhook for sync success/failure alerts

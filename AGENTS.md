@@ -33,10 +33,12 @@ Node **20.20.0** (`.nvmrc`), pnpm **9.15.0** (`packageManager` in `package.json`
 
 ## Environment
 
-All three are required at app startup. Copy `.env.example` to `.env.local`.
+All five are required at app startup. Copy `.env.example` to `.env.local`.
 
-| Variable           | Purpose                                        |
-| ------------------ | ---------------------------------------------- |
-| `DATABASE_URL`     | Postgres connection string                     |
-| `CRON_SECRET`      | Protects `/api/cron/sync-stats`                |
-| `X402_PRIVATE_KEY` | EVM key for SIWx + Base USDC x402 stat fetches |
+| Variable                            | Purpose                                         |
+| ----------------------------------- | ----------------------------------------------- |
+| `DATABASE_URL`                      | Postgres connection string                      |
+| `CRON_SECRET`                       | Protects `/api/cron/sync-stats`                 |
+| `X402_PRIVATE_KEY`                  | EVM key for SIWx + Base USDC x402 stat fetches  |
+| `DISCORD_NOTIFICATIONS_WEBHOOK_URL` | Discord webhook for app notifications           |
+| `DISCORD_ALERTS_WEBHOOK_URL`        | Discord webhook for sync success/failure alerts |
